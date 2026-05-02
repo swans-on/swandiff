@@ -2,6 +2,8 @@
 
 A high-performance, fun, and dependency-free web application for comparing text and code.
 
+**[Live Demo](https://swans-on.github.io/swandiff/)**
+
 ![Swandiff Logo](logo.svg)
 
 ## Features
