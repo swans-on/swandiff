@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Variables & Theme
+   ========================================================================== */
+
+:root {
+    --bg-color: #f8f9fa;
+    --border-color: #dee2e6;
+    --added-bg: #e6ffec;
+    --added-inner-bg: #acf2bd;
+    --removed-bg: #ffeef0;
+    --removed-inner-bg: #fdb8c0;
+    --header-bg: #ffffff;
+    --text-color: #333;
+    --pane-bg: #ffffff;
+    --line-num-bg: #f1f3f5;
+    --line-num-color: #adb5bd;
+    --shadow: 0 2px 4px rgba(0,0,0,0.05);
+    --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    
+    --syn-keyword: #d73a49;
+    --syn-string: #032f62;
+    --syn-comment: #6a737d;
+    --syn-number: #005cc5;
+    --syn-function: #6f42c1;
+    --syn-operator: #d73a49;
+
+    --search-highlight: #fff5b1;
+    --search-current: #ffdf5d;
+}
+
+body.dark-mode {
+    --bg-color: #0d1117;
+    --border-color: #30363d;
+    --added-bg: rgba(46, 160, 67, 0.15);
+    --added-inner-bg: rgba(46, 160, 67, 0.4);
+    --removed-bg: rgba(248, 81, 73, 0.15);
+    --removed-inner-bg: rgba(248, 81, 73, 0.4);
+    --header-bg: #161b22;
+    --text-color: #c9d1d9;
+    --pane-bg: #0d1117;
+    --line-num-bg: #161b22;
+    --line-num-color: #484f58;
+    --shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+    --syn-keyword: #ff7b72;
+    --syn-string: #a5d6ff;
+    --syn-comment: #8b949e;
+    --syn-number: #79c0ff;
+    --syn-function: #d2a8ff;
+    --syn-operator: #ff7b72;
+
+    --search-highlight: #634c11;
+    --search-current: #9e7a1c;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Layout - Header
+   ========================================================================== */
+
+header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.site-logo {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+.site-logo:hover {
+    transform: rotate(-5deg) scale(1.1);
+}
+
+h1 { margin: 0; font-size: 1.1rem; letter-spacing: -0.02em; }
+
+.stats { font-size: 0.85rem; font-weight: 600; }
+.stat-add { color: #2ea44f; margin-right: 0.5rem; }
+.stat-rem { color: #d73a49; }
+
+/* ==========================================================================
+   Layout - Controls
+   ========================================================================== */
+
+.controls {
+    display: flex;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--bg-color);
+}
+
+.control-group { display: flex; gap: 0.8rem; padding: 0 0.5rem; border-right: 1px solid var(--border-color); align-items: center; }
+.control-group:last-child { border-right: none; }
+.controls label { font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+
+select#language-select {
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    background: var(--pane-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    outline: none;
+}
+
+.shortcuts-hint {
+    font-size: 0.75rem;
+    color: var(--line-num-color);
+    padding: 0.2rem 1rem;
+    background-color: var(--line-num-bg);
+    text-align: right;
+}
+
+/* ==========================================================================
+   Components - Search
+   ========================================================================== */
+
+.search-box { display: flex; gap: 2px; }
+.search-box input {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border-color);
+    background: var(--pane-bg);
+    color: var(--text-color);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    outline: none;
+    width: 150px;
+}
+.search-box button {
+    padding: 0.2rem 0.5rem;
+    background: var(--line-num-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.search-match { background-color: var(--search-highlight); }
+.search-match.current { background-color: var(--search-current); outline: 2px solid var(--syn-operator); }
+
+/* ==========================================================================
+   Components - Main View & Panes
+   ========================================================================== */
+
+main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+#main-view { display: flex; flex: 1; overflow: hidden; position: relative; }
+
+.pane-container { display: flex; flex: 1; background-color: var(--border-color); overflow: hidden; }
+.pane { flex: 1; background-color: var(--pane-bg); display: flex; position: relative; overflow: auto; }
+
+.line-numbers, .line-numbers-unified {
+    width: 3.5rem;
+    background-color: var(--line-num-bg);
+    border-right: 1px solid var(--border-color);
+    color: var(--line-num-color);
+    text-align: right;
+    padding: 0.5rem 0.5rem;
+    user-select: none;
+    display: none;
+}
+.show-line-numbers .line-numbers,
+.show-line-numbers .line-numbers-unified { display: block; }
+
+textarea, .diff-view, .line-numbers div, .line-numbers-unified div {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.4rem;
+    margin: 0;
+}
+
+textarea, .diff-view {
+    flex: 1;
+    border: none;
+    padding: 0.5rem;
+    tab-size: 4;
+    white-space: pre;
+    min-height: 100%;
+    color: inherit;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+    background-color: transparent;
+    display: block;
+}
+textarea.drag-over { background-color: rgba(0, 123, 255, 0.1); }
+
+.diff-view { display: none; }
+.comparing .diff-view { display: block; }
+.comparing textarea { display: none; }
+
+.word-wrap textarea, .word-wrap .diff-view { white-space: pre-wrap; word-break: break-all; }
+
+/* ==========================================================================
+   Components - Diff Content
+   ========================================================================== */
+
+.diff-line { min-height: 1.4rem; padding-left: 0.5rem; display: flex; }
+.diff-line-content { flex: 1; }
+
+.added { background-color: var(--added-bg); }
+.removed { background-color: var(--removed-bg); }
+.added .inner-diff { background-color: var(--added-inner-bg); border-radius: 2px; }
+.removed .inner-diff { background-color: var(--removed-inner-bg); border-radius: 2px; }
+
+.highlight-off .added, .highlight-off .removed,
+.highlight-off .inner-diff { background-color: transparent !important; }
+
+/* ==========================================================================
+   Components - Minimap
+   ========================================================================== */
+
+#minimap-container {
+    width: 60px;
+    background-color: var(--line-num-bg);
+    border-left: 1px solid var(--border-color);
+    display: none;
+    position: relative;
+    cursor: pointer;
+}
+.show-minimap #minimap-container { display: block; }
+#minimap-canvas { width: 100%; height: 100%; }
+
+/* ==========================================================================
+   Unified View Specifics
+   ========================================================================== */
+
+.line-numbers-unified { width: 7rem; display: none; }
+.line-numbers-unified div { display: flex; justify-content: space-between; }
+.line-num-old, .line-num-new { width: 3rem; }
+
+/* ==========================================================================
+   Syntax Highlighting
+   ========================================================================== */
+
+.syn-keyword { color: var(--syn-keyword); font-weight: bold; }
+.syn-string { color: var(--syn-string); }
+.syn-comment { color: var(--syn-comment); font-style: italic; }
+.syn-number { color: var(--syn-number); }
+.syn-function { color: var(--syn-function); }
+.syn-operator { color: var(--syn-operator); }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+button#compare-btn {
+    padding: 0.4rem 0.8rem;
+    background-color: #2ea44f;
+    color: white;
+    border: 1px solid rgba(27,31,35,0.15);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+button#compare-btn:hover { background-color: #2c974b; }

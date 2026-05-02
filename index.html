@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swandiff - Swanson's Web Diff Viewer</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-main">
+            <div class="logo-area">
+                <img src="logo.svg" alt="Logo" class="site-logo">
+                <h1>Swandiff</h1>
+            </div>
+            <div id="diff-stats" class="stats"></div>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search ( / )...">
+                <button id="search-prev">&lt;</button>
+                <button id="search-next">&gt;</button>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="control-group">
+                <label><input type="checkbox" id="show-line-numbers" checked> Line Numbers</label>
+                <label><input type="checkbox" id="word-wrap"> Word Wrap</label>
+                <label><input type="checkbox" id="highlight-diff" checked> Highlight Diff</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="unified-view"> Unified View</label>
+                <label><input type="checkbox" id="ignore-whitespace"> Ignore Whitespace</label>
+                <label><input type="checkbox" id="show-minimap" checked> Minimap</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="syntax-highlighting"> Syntax</label>
+                <select id="language-select">
+                    <option value="javascript">Javascript</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="python">Python</option>
+                    <option value="generic">Generic</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="dark-mode"> Dark Mode</label>
+                <button id="compare-btn">Compare</button>
+            </div>
+        </div>
+        <div class="shortcuts-hint">
+            Shortcuts: [j] Next Change [k] Prev Change [v] Toggle View [/] Search
+        </div>
+    </header>
+
+    <main id="app-container" class="show-line-numbers">
+        <div id="main-view">
+            <div class="pane-container" id="side-by-side-container">
+                <div class="pane" id="left-pane">
+                    <div class="line-numbers"></div>
+                    <textarea id="left-input" placeholder="Paste original text here or drop a file..."></textarea>
+                    <div class="diff-view" id="left-diff"></div>
+                </div>
+                <div class="pane" id="right-pane">
+                    <div class="line-numbers"></div>
+                    <textarea id="right-input" placeholder="Paste modified text here or drop a file..."></textarea>
+                    <div class="diff-view" id="right-diff"></div>
+                </div>
+            </div>
+            
+            <div class="pane-container" id="unified-container" style="display: none;">
+                <div class="pane" id="unified-pane">
+                    <div class="line-numbers-unified"></div>
+                    <div class="diff-view" id="unified-diff"></div>
+                </div>
+            </div>
+
+            <div id="minimap-container">
+                <canvas id="minimap-canvas"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
