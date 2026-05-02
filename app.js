@@ -1,5 +1,5 @@
 /**
- * Professional Web Diff Viewer - Entry Point
+ * Swandiff - Web Diff Viewer
  */
 
 import { state, subscribe, updateState } from './src/state.js';

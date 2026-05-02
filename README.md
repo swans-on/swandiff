@@ -1,6 +1,6 @@
 # Swandiff - Swanson's Web Diff Viewer
 
-A high-performance, professional-grade, and dependency-free web application for comparing text and code.
+A high-performance, fun, and dependency-free web application for comparing text and code.
 
 ![Swandiff Logo](logo.svg)
 

@@ -1,7 +1,7 @@
 {
   "name": "swandiff",
   "version": "1.0.0",
-  "description": "Professional Web Diff Viewer",
+  "description": "A simple and fun web-based diff viewer",
   "type": "module",
   "scripts": {
     "dev": "vite",
